@@ -1,2 +1,25 @@
 @import "tailwindcss";
 @import "uniwind";
+
+@theme {
+  --font-regular: PoppinsRegular;
+  --font-medium: PoppinsMedium;
+  --font-semibold: PoppinsSemiBold;
+  --font-bold: PoppinsBold;
+
+  --color-primary-black: #45484a;
+
+  --color-secondary-gray: #aeb5bb;
+}
+
+@utility heading {
+  @apply text-[2.6rem] font-bold;
+}
+
+@utility app-input {
+  @apply text-base border-2 border-primary-black rounded-full pl-12 pr-4 py-5;
+}
+
+@utility action-button {
+  @apply flex-1 outline-none rounded-full py-5;
+}

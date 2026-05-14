@@ -12,7 +12,7 @@ const StyledSafeAreaView = withUniwind(SafeAreaView);
 
 export default function AppScreen({ children, className }: Props) {
   return (
-    <StyledSafeAreaView className="flex-1 px-6 py-6">
+    <StyledSafeAreaView className="flex-1 p-8">
       <View className={`flex-1 ${className ?? ""}`}>{children}</View>
     </StyledSafeAreaView>
   );

@@ -5,14 +5,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AppText from "../../components/app.text";
 import AppScreen from "../../components/app.screen";
 import NotebookImage from "../../../assets/images/welcome-notebook.svg";
+import { AuthRootStackParamList } from "../../types/auth.types";
 
-type RootStackParamList = {
-  Welcome: undefined;
-  Login: undefined;
-  Signup: undefined;
-};
-
-type Props = NativeStackScreenProps<RootStackParamList, "Welcome">;
+type Props = NativeStackScreenProps<AuthRootStackParamList, "Welcome">;
 
 export default function WelcomeScreen({ navigation }: Props) {
   const [selected, setSelected] = useState<"login" | "signup">("login");
@@ -38,33 +33,33 @@ export default function WelcomeScreen({ navigation }: Props) {
         </View>
 
         <AppText
-          className="heading text-4xl mb-6"
-          text="Your Thoughts, Anytime"
+          className="heading text-[2.5rem] mb-6"
+          text="Notes Made Simple"
         />
 
-        <AppText text="Write, save, and organize your notes effortlessly. Everything you need stays in one simple, secure place, ready whenever you do." />
+        <AppText text="Keep your thoughts, plans, and daily ideas organized in one clean and secure workspace designed for effortless productivity." />
       </View>
 
-      <View className="bg-secondary-gray mb-2 flex-row rounded-full p-1">
+      <View className="bg-primary-black mb-2 flex-row rounded-full p-1">
         <Pressable
           onPress={handleLogin}
-          className={`action-button ${isLogin ? "bg-primary-black" : "bg-transparent"}`}
+          className={`action-button ${isLogin ? "bg-black" : "bg-transparent"}`}
         >
           <AppText
             text="Log in"
-            className={`text-lg ${isLogin ? "text-white" : "text-primary-black"}`}
+            className={`text-lg text-white font-semibold`}
           />
         </Pressable>
 
         <Pressable
           onPress={handleSignup}
           className={`action-button ${
-            isSignup ? "bg-primary-black" : "bg-transparent"
+            isSignup ? "bg-black" : "bg-transparent"
           }`}
         >
           <AppText
             text="Sign up"
-            className={`text-lg ${isSignup ? "text-white" : "text-primary-black"}`}
+            className={`text-lg text-white font-semibold`}
           />
         </Pressable>
       </View>

@@ -8,7 +8,10 @@ type Props = {
 export default function AppText({ text, className }: Props) {
   return (
     <Text
-      className={`text-primary-black font-regular text-center text-base ${className ?? ""}`}
+      style={{
+        fontFamily: " PoppinsRegular",
+      }}
+      className={`text-center text-base ${className ?? ""}`}
     >
       {text}
     </Text>

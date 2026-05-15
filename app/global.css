@@ -17,9 +17,9 @@
 }
 
 @utility app-input {
-  @apply text-base border-2 border-primary-black rounded-full pl-12 pr-4 py-5;
+  @apply text-base outline-none border-2 border-primary-black rounded-2xl pl-12 pr-4 py-5;
 }
 
 @utility action-button {
-  @apply flex-1 outline-none rounded-full py-5;
+  @apply flex-1 outline-none rounded-xl py-5;
 }

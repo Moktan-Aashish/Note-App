@@ -8,18 +8,27 @@ import AppInput from "../../components/app.input";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthRootStackParamList } from "../../types/auth.types";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { signupSchema, SignupSchema } from "../../schemas/signup.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type props = NativeStackScreenProps<AuthRootStackParamList, "Signup">;
 
 export default function SignupScreen({ navigation }: props) {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupSchema>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSignup = () => {
-    console.log("Name: " + userName);
-    console.log("Email: " + email);
-    console.log("Password: " + password);
+  const handleSignup = (data: SignupSchema) => {
+    console.log("");
   };
 
   const handleSigninNavigation = () => {
@@ -37,31 +46,52 @@ export default function SignupScreen({ navigation }: props) {
         </View>
 
         <View className="gap-6 mb-16">
-          <AppInput
-            value={userName}
-            onChangeText={setUserName}
-            icon={<User size={24} />}
-            placeholder="enter your name"
+          <Controller
+            control={control}
+            name="username"
+            render={({ field: { value, onChange } }) => (
+              <AppInput
+                value={value}
+                onChangeText={onChange}
+                icon={<User size={24} />}
+                placeholder="enter your username"
+                error={errors.username?.message}
+              />
+            )}
           />
 
-          <AppInput
-            value={email}
-            onChangeText={setEmail}
-            icon={<Mail size={24} />}
-            placeholder="enter your email"
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { value, onChange } }) => (
+              <AppInput
+                value={value}
+                onChangeText={onChange}
+                icon={<Mail size={24} />}
+                placeholder="enter your email"
+                error={errors.email?.message}
+              />
+            )}
           />
 
-          <AppInput
-            value={password}
-            onChangeText={setPassword}
-            icon={<Lock size={24} />}
-            placeholder="enter your password"
-            secure
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { value, onChange } }) => (
+              <AppInput
+                value={value}
+                onChangeText={onChange}
+                icon={<Lock size={24} />}
+                placeholder="enter your password"
+                secure
+                error={errors.password?.message}
+              />
+            )}
           />
 
           <Pressable
-            onPress={handleSignup}
-            className="bg-black rounded-full py-5"
+            onPress={handleSubmit(handleSignup)}
+            className="bg-black rounded-2xl py-5"
           >
             <AppText text="Sign Up" className="text-white text-xl font-bold" />
           </Pressable>
@@ -70,7 +100,7 @@ export default function SignupScreen({ navigation }: props) {
         <View className="items-center gap-8">
           <AppText text="or continue with" />
 
-          <Pressable className="w-full border-2 border-primary-black rounded-full py-4">
+          <Pressable className="w-full border-2 border-primary-black rounded-2xl py-4">
             <AppText text="Google" className="text-xl font-bold" />
           </Pressable>
         </View>

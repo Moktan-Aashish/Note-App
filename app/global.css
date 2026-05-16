@@ -8,7 +8,6 @@
   --font-bold: PoppinsBold;
 
   --color-primary-black: #45484a;
-
   --color-secondary-gray: #aeb5bb;
 }
 
@@ -17,9 +16,17 @@
 }
 
 @utility app-input {
-  @apply text-base outline-none border-2 border-primary-black rounded-2xl pl-12 pr-4 py-5;
+  @apply text-base border-2 border-primary-black rounded-2xl pl-12 pr-4 py-5;
 }
 
 @utility action-button {
-  @apply flex-1 outline-none rounded-xl py-5;
+  @apply flex-1 rounded-xl py-5;
+}
+
+@utility error {
+  @apply text-red-500;
+}
+
+@utility error-bordered {
+  @apply border-red-500;
 }

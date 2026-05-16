@@ -1,19 +1,21 @@
-import { Pressable, Text, View } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { Pressable, View } from "react-native";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Lock, Mail } from "lucide-react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import AppText from "../../components/app.text";
 import AppScreen from "../../components/app.screen";
 import BackButton from "../../components/app.back";
 import AppInput from "../../components/app.input";
-import { Lock, Mail } from "lucide-react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import { AuthRootStackParamList } from "../../types/auth.types";
 import { loginSchema, LoginSchema } from "../../schemas/login.schema";
+import { COLORS } from "../../constants/colors";
 
-type props = NativeStackScreenProps<AuthRootStackParamList, "Login">;
+type Props = NativeStackScreenProps<AuthRootStackParamList, "Login">;
 
-export default function LoginScreen({ navigation }: props) {
+export default function LoginScreen({ navigation }: Props) {
   const {
     control,
     handleSubmit,
@@ -30,9 +32,13 @@ export default function LoginScreen({ navigation }: props) {
     console.log(data);
   };
 
-  const handleSignupNavigation = () => {
-    navigation.navigate("Signup");
-  };
+  const goToSignup = () => navigation.navigate("Signup");
+
+  const emailError = errors.email?.message;
+  const passwordError = errors.password?.message;
+
+  const emailIconColor = emailError ? COLORS.error : COLORS.default;
+  const passwordIconColor = passwordError ? COLORS.error : COLORS.default;
 
   return (
     <AppScreen className="justify-between">
@@ -40,9 +46,9 @@ export default function LoginScreen({ navigation }: props) {
 
       <View className="flex-1 mt-4">
         <View className="mb-8">
-          <Text className="heading">Hey,</Text>
-          <Text className="heading">Welcome</Text>
-          <Text className="heading">Back</Text>
+          <AppText text="Hey," className="heading text-left" weight="bold" />
+          <AppText text="Welcome" className="heading text-left" weight="bold" />
+          <AppText text="Back" className="heading text-left" weight="bold" />
         </View>
 
         <View className="gap-6 mb-16">
@@ -53,9 +59,9 @@ export default function LoginScreen({ navigation }: props) {
               <AppInput
                 value={value}
                 onChangeText={onChange}
-                icon={<Mail size={24} />}
-                placeholder="enter your email"
-                error={errors.email?.message}
+                icon={<Mail size={24} color={emailIconColor} />}
+                placeholder="Enter your email"
+                error={emailError}
               />
             )}
           />
@@ -67,10 +73,10 @@ export default function LoginScreen({ navigation }: props) {
               <AppInput
                 value={value}
                 onChangeText={onChange}
-                icon={<Lock size={24} />}
-                placeholder="enter your password"
+                icon={<Lock size={24} color={passwordIconColor} />}
+                placeholder="Enter your password"
                 secure
-                error={errors.password?.message}
+                error={passwordError}
               />
             )}
           />
@@ -78,31 +84,36 @@ export default function LoginScreen({ navigation }: props) {
           <Pressable>
             <AppText
               text="Forgot Password?"
-              className="text-right font-semibold"
+              className="text-right"
+              weight="semibold"
             />
           </Pressable>
 
           <Pressable
             onPress={handleSubmit(handleLogin)}
-            className="bg-black rounded-2xl py-5"
+            className="bg-black rounded-2xl py-5 items-center"
           >
-            <AppText text="Login" className="text-white text-xl font-bold" />
+            <AppText
+              text="Login"
+              className="text-white text-xl"
+              weight="bold"
+            />
           </Pressable>
         </View>
 
         <View className="items-center gap-8">
           <AppText text="or continue with" />
 
-          <Pressable className="w-full border-2 border-primary-black rounded-2xl py-4">
-            <AppText text="Google" className="text-xl font-bold" />
+          <Pressable className="w-full border-2 border-primary-black rounded-2xl py-4 items-center">
+            <AppText text="Google" className="text-xl" weight="bold" />
           </Pressable>
         </View>
       </View>
 
       <View className="flex-row justify-center gap-2 mb-4">
         <AppText text="Don't have an account?" />
-        <Pressable onPress={handleSignupNavigation}>
-          <AppText text="Sign up" className="font-semibold" />
+        <Pressable onPress={goToSignup}>
+          <AppText text="Sign up" weight="semibold" />
         </Pressable>
       </View>
     </AppScreen>

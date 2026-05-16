@@ -6,7 +6,7 @@ export default function BackButton() {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.goBack()}>
+    <Pressable onPress={navigation.goBack}>
       <Ionicons name="arrow-back" size={32} />
     </Pressable>
   );
